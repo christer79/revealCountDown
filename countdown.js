@@ -2,7 +2,7 @@
  * A plugin which enables rendering of a countdown clock in
  * reveal.js slides with a circular progress indicator.
  *
- * @author Christer Eriksson, modificato
+ * @author Christer Eriksson, Fabio Rigoni
  */
 var RevealCountDown =
 window.RevealCountDown ||
