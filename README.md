@@ -11,14 +11,14 @@ Using the plugin is easy. First, register it in your Reveal.js initialize block.
 
 ```javascript
 <script>
-    // Importa il plugin countdown in Reveal.js
+    // Import countdown plugin in Reveal.js
     const RevealCountdown = {
         id: 'countdown',
         init: function(deck) {
             return new Promise(resolve => {
                 // Carica dinamicamente lo script countdown
                 const script = document.createElement('script');
-                script.src = 'plugin/circlecountdown/circlecountdown.js';
+                script.src = 'plugin/countdown/countdown.js';
                 script.onload = () => {
                     resolve();
                 };
@@ -27,14 +27,14 @@ Using the plugin is easy. First, register it in your Reveal.js initialize block.
         }
     };
 
-    // Configura Reveal.js con i plugin inclusi
+    // Configure Reveal.js
     Reveal.initialize({
         hash: true,
 
-        // Aggiungi il plugin countdown all'array plugins
+        // Add plugin countdown to the plugins array
         plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealCountdown],
 
-        // Configura il plugin countdown
+        // Configure countdown plugin
         countdown: {
             defaultTime: 600,
             autostart: "no"
