@@ -10,8 +10,7 @@ This plugin let you add a graphic countdown timer to your reveal.js presentation
 Using the plugin is easy. First, register it in your Reveal.js initialize block.
 
 ```javascript
-
-    				<script>
+<script>
     // Importa il plugin countdown in Reveal.js
     const RevealCountdown = {
         id: 'countdown',
