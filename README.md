@@ -1,6 +1,9 @@
 # Countdown.js
 
-This plugin let you add a countdown timer to your reveal.js presentations
+This plugin let you add a graphic countdown timer to your reveal.js presentations
+
+![coundown_screenshot](https://github.com/user-attachments/assets/c0dd1799-f418-45a0-9113-619b8e783149)
+
 
 ## Usage
 
@@ -8,14 +11,37 @@ Using the plugin is easy. First, register it in your Reveal.js initialize block.
 
 ```javascript
 
-    Reveal.initialize({
-        dependencies: [
-            ....
-          { src: "plugin/countdown/countdown.js" },
+    				<script>
+    // Importa il plugin countdown in Reveal.js
+    const RevealCountdown = {
+        id: 'countdown',
+        init: function(deck) {
+            return new Promise(resolve => {
+                // Carica dinamicamente lo script countdown
+                const script = document.createElement('script');
+                script.src = 'plugin/circlecountdown/circlecountdown.js';
+                script.onload = () => {
+                    resolve();
+                };
+                document.head.appendChild(script);
+            });
+        }
+    };
 
-        ],
-        countdown: { defaultTime: 600, autostart: "no" }
-      });
+    // Configura Reveal.js con i plugin inclusi
+    Reveal.initialize({
+        hash: true,
+
+        // Aggiungi il plugin countdown all'array plugins
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealCountdown],
+
+        // Configura il plugin countdown
+        countdown: {
+            defaultTime: 600,
+            autostart: "no"
+        }
+    });
+</script>
 
 ```
 
