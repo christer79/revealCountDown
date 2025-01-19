@@ -2,7 +2,7 @@
  * A plugin which enables rendering of a countdown clock in
  * reveal.js slides with a circular progress indicator.
  *
- * @author Christer Eriksson, Fabio Rigoni
+ * @author Christer Eriksson, modificato
  */
 var RevealCountDown =
 window.RevealCountDown ||
@@ -29,12 +29,48 @@ window.RevealCountDown ||
   }
 
   var tick = options.tickSound != "" ? new Audio(options.tickSound) : null;
-  var endSound = options.timeIsUpSound != "" ? new Audio(options.timeIsUpSound) : null;
+  var endSound =
+  options.timeIsUpSound != "" ? new Audio(options.timeIsUpSound) : null;
   var counterRef = null;
   var interval = null;
   var startTime = 0;
   var elapsedTime = 0;
   var running = false;
+
+  // Aggiungi stili dinamici
+  function addStyles() {
+    const style = document.createElement("style");
+    style.textContent = `
+    .countdown-circle {
+      width: 120px;
+      height: 120px;
+      display: block;
+      margin: 0 auto;
+    }
+    .countdown-circle circle:nth-child(1) {
+      stroke: var(--r-heading-color, #ddd); /* Colore del tema */
+    }
+    .countdown-circle circle:nth-child(2) {
+      stroke: var(--r-link-color, #007bff); /* Colore del tema */
+      transition: stroke-dashoffset 0.1s linear;
+    }
+    .countdown-circle text {
+      font-family: inherit; /* Font del tema */
+      font-size: 18px;
+      fill: var(--r-heading-color, #333); /* Colore del testo */
+    }
+    body.dark .countdown-circle circle:nth-child(1) {
+      stroke: #555; /* Sfondo scuro */
+    }
+    body.dark .countdown-circle circle:nth-child(2) {
+      stroke: #4caf50; /* Colore accento scuro */
+    }
+    body.dark .countdown-circle text {
+      fill: #fff; /* Testo scuro */
+    }
+    `;
+    document.head.appendChild(style);
+  }
 
   Reveal.addEventListener("slidechanged", function (event) {
     initCountDown(event.currentSlide);
@@ -71,13 +107,10 @@ window.RevealCountDown ||
 
   function createCircularTimer(element) {
     element.innerHTML = `
-    <svg viewBox="0 0 100 100" class="countdown-circle" style="width: 200px;
-    height: 200px;
-    display: block;
-    margin: 0 auto;">
-    <circle cx="50" cy="50" r="45" stroke="#ddd" fill="none" stroke-width="10"></circle>
-    <circle cx="50" cy="50" r="45" stroke="#007bff" fill="none" stroke-width="10" stroke-dasharray="283" stroke-dashoffset="283"></circle>
-    <text x="50" y="55" text-anchor="middle" font-size="18" fill="#ffffff"></text>
+    <svg viewBox="0 0 100 100" class="countdown-circle">
+    <circle cx="50" cy="50" r="45" stroke-width="10" fill="none"></circle>
+    <circle cx="50" cy="50" r="45" stroke-width="10" fill="none" stroke-dasharray="283" stroke-dashoffset="283"></circle>
+    <text x="50" y="55" text-anchor="middle"></text>
     </svg>
     `;
   }
@@ -121,7 +154,8 @@ window.RevealCountDown ||
       if (elapsedTime < startTime && running && !Reveal.isPaused()) {
         elapsedTime += 1;
         updateTimer(startTime - elapsedTime);
-        if (tick && startTime < elapsedTime + options.playTickSoundLast) tick.play();
+        if (tick && startTime < elapsedTime + options.playTickSoundLast)
+          tick.play();
         if (endSound && elapsedTime >= startTime) endSound.play();
       }
     }, 1000);
@@ -145,6 +179,8 @@ window.RevealCountDown ||
 
     running = autostart === "yes";
   }
+
+  addStyles(); // Aggiungi stili globali
 
   return {
     init: function () {},
