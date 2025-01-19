@@ -42,8 +42,8 @@ window.RevealCountDown ||
     const style = document.createElement("style");
     style.textContent = `
     .countdown-circle {
-      width: 120px;
-      height: 120px;
+      width: 180px;
+      height: 180px;
       display: block;
       margin: 0 auto;
     }
