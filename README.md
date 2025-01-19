@@ -16,7 +16,7 @@ Using the plugin is easy. First, register it in your Reveal.js initialize block.
         id: 'countdown',
         init: function(deck) {
             return new Promise(resolve => {
-                // Carica dinamicamente lo script countdown
+                // Script load
                 const script = document.createElement('script');
                 script.src = 'plugin/countdown/countdown.js';
                 script.onload = () => {
